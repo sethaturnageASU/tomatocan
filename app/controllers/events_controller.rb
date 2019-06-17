@@ -62,6 +62,10 @@ class EventsController < ApplicationController
     end
   end
 
+  def start_at
+      @start_at
+  end
+
   private
 
     def event_params

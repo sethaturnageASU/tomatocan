@@ -115,6 +115,10 @@ class User < ApplicationRecord
     end
   end  
 
+  def get_upcoming_show_url url
+      url = "https://crowdpublishtv.herokuapp.com/"
+  end
+
   def calcdashboard # Poll users for desired metrics
     self.monthperkinfo = []
     self.incomeinfo = []
@@ -170,4 +174,5 @@ class User < ApplicationRecord
       end
     end
 
+    
 end

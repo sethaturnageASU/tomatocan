@@ -12,8 +12,19 @@ class RsvpqsController < ApplicationController
   def create
     if current_user
       @rsvp = current_user.rsvpqs.build(rsvpq_params)
+      #attempting to implement mailers
+      #@parentEvent = Event.find(rsvpq_params[:event_id])
+      #@fifteen_minutes_before_event = (Time.now - @parentEvent.start_at)/60
+      ShowtimeMailer.showtime_email(current_user).deliver_now#later(wait: @fifteen_minutes_before_event)#Event.find(rsvpq_params[:event_id]).start_time - 15.minutes))# time difference in minutes minus 15
     else
-      @rsvp = Rsvpq.new(rsvpq_params)
+      @rsvp = Rsvpq.new(rsvpq_params) 
+      #attempting to implement mailers
+      #@parentEvent = Event.find(rsvpq_params[:event_id])
+      #@UserFromId = User.find(rsvpq_params[:user_id])
+      #@minutes_till_event = ()/60
+      #@fifteen_minutes_before_event = (Time.now - @parentEvent.start_at)/60
+      #ShowtimeMailer.with(user: @UserFromId).showtime_email#later(wait: @fifteen_minutes_before_event)#@parentEvent.start_time - 15.minutes)# time difference in minutes minus 15
+      ShowtimeMailer.showtime_email(current_user).deliver_now
     end
 
     if @rsvp.save
@@ -45,6 +56,7 @@ class RsvpqsController < ApplicationController
     def rsvpq_params
       params.require(:rsvpq).permit(:event_id, :user_id, :guests, :email)
     end
+
 
     def resolve_layout
       case action_name
